@@ -94,6 +94,8 @@ nav a {
     text-decoration: none;
     border-bottom: 1px solid rgba(60, 150, 125, 0.25);
     transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 20px;
+    margin-bottom: 3px;
 }
 
 nav a:hover {
@@ -102,12 +104,13 @@ nav a:hover {
 }
 
 nav a:first-child {
-    border-radius: 10px 10px 0 0;
+    border-radius: 20px 20px 0 0;
 }
 
 nav a:last-child {
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 20px 20px;
     border-bottom: none;
+    margin-bottom: 0;
 }
 
 /* 제목 */
