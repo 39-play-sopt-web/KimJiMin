@@ -1,0 +1,149 @@
+
+:root {
+  --color-text: #333;
+  --color-page-bg-start: #93efd6;
+  --color-page-bg-end: #dce9c5;
+  --color-card-bg: #fff;
+  --color-nav-text: #34443e;
+  --color-nav-hover: #086e62;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--color-text);
+  background: linear-gradient(
+    120deg,
+    var(--color-page-bg-start),
+    var(--color-page-bg-end)
+  );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 100px;
+  margin-bottom: 45px;
+}
+
+.layout {
+  display: flex;
+  gap: 45px;
+  padding: 90px 18px 30px;
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 90px;
+  align-self: flex-start;
+  width: 145px;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+nav li {
+  margin-bottom: 3px;
+}
+
+nav li:last-child {
+  margin-bottom: 0;
+}
+
+nav a {
+  display: block;
+  padding: 17px 14px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--color-nav-text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(60, 150, 125, 0.25);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 20px;
+}
+
+nav a:hover {
+  background: var(--color-nav-hover);
+  color: white;
+}
+
+nav li:first-child a {
+  border-radius: 20px 20px 0 0;
+}
+
+nav li:last-child a {
+  border-radius: 0 0 20px 20px;
+  border-bottom: none;
+}
+
+section h2 {
+  font-size: 22px;
+  margin: 0 0 12px;
+}
+
+section p {
+  margin-top: 0;
+}
+
+#toWebtory p {
+  background: var(--color-card-bg);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+#toWebtory p::before {
+  content: "❤️";
+}
+
+#toWebtory p::after {
+  content: " ❤️";
+}
+
+nav li:first-child a::before {
+  content: "📷 ";
+}
+
+#photo h2::before {
+  content: "📷 ";
+}
+
+@media (max-width: 768px) {
+  .layout {
+    gap: 20px;
+  }
+
+  nav {
+    width: 120px;
+  }
+}
+
+@media (max-width: 576px) {
+  .layout {
+    gap: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  nav {
+    width: 95px;
+  }
+
+  nav a {
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+}

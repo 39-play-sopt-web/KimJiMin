@@ -1,0 +1,40 @@
+
+.album-scroll {
+  width: 100%;
+  overflow: hidden;
+}
+
+.album-track {
+  display: flex;
+  width: max-content;
+  animation: albumMove 30s linear infinite;
+}
+
+.album-group {
+  display: flex;
+  gap: 18px;
+  padding-right: 18px;
+  flex-shrink: 0;
+}
+
+.album-group img {
+  width: 290px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+@keyframes albumMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.album-scroll:hover .album-track {
+  animation-play-state: paused;
+}
