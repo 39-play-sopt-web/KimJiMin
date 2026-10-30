@@ -26,6 +26,7 @@ function MovieList() {
   const [hasMore, setHasMore] = useState(true);
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const saveScrollPosition = () => {sessionStorage.setItem('movieScrollPosition', String(window.scrollY));};
   const location = useLocation();
   const isMovieList = location.pathname === '/';
 
@@ -175,7 +176,10 @@ function MovieList() {
       <div className="movie-list">
         {movies.map((movie) => (
           <article className="movie-card" key={movie.id}>
-            <Link to={`/movie/${movie.id}`}>
+            <Link
+              to={`/movie/${movie.id}`}
+              onClick={saveScrollPosition}
+            >
               <div className="movie-poster-area">
                 {movie.poster_path && (
                   <img
@@ -212,14 +216,21 @@ function MovieList() {
 
 function App() {
   const location = useLocation();
-  const scrollPosition = useRef(0);
+  const scrollPosition = useRef(
+    Number(sessionStorage.getItem('movieScrollPosition') || 0)
+  );
 
   useEffect(() => {
-    if (location.pathname !== '/') {
-      scrollPosition.current = window.scrollY;
-      window.scrollTo(0, 0);
+    if (location.pathname === '/') {
+      const savedPosition = Number(
+        sessionStorage.getItem('movieScrollPosition') || 0
+      );
+
+      requestAnimationFrame(() => {
+        window.scrollTo(0, savedPosition);
+      });
     } else {
-      window.scrollTo(0, scrollPosition.current);
+      window.scrollTo(0, 0);
     }
   }, [location.pathname]);
 
