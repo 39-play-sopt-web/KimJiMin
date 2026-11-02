@@ -1,4 +1,4 @@
-function Header({ menu, setMenu, level, handleLevel, timer }) {
+function Header({ menu, handleMenuChange, level, handleLevel, timer }) {
     return (
         <header className="header">
             <div className="header-left">
@@ -8,13 +8,13 @@ function Header({ menu, setMenu, level, handleLevel, timer }) {
                 <nav className="menu">
                     <button
                         className={menu === 'game' ? 'menu-button active' : 'menu-button'}
-                        onClick={() => setMenu('game')}
+                        onClick={() => handleMenuChange('game')}
                     >
                         게임
                     </button>
                     <button
                         className={menu === 'ranking' ? 'menu-button active' : 'menu-button'}
-                        onClick={() => setMenu('ranking')}
+                        onClick={() => handleMenuChange('ranking')}
                     >
                         랭킹
                     </button>

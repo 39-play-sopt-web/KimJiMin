@@ -84,6 +84,13 @@ function Game() {
         startGame(selectedLevel);
     };
 
+    const handleMenuChange = (nextMenu) => {
+        if (menu === nextMenu) return;
+
+        startGame(level);
+        setMenu(nextMenu);
+    };
+
     const handleClick = (number) => {
         const size = level + 2;
         const count = size * size;
@@ -145,7 +152,7 @@ function Game() {
         <div className="app">
             <Header
                 menu={menu}
-                setMenu={setMenu}
+                handleMenuChange={handleMenuChange}
                 level={level}
                 handleLevel={handleLevel}
                 timer={timer}
