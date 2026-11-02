@@ -4,6 +4,18 @@ import Header from './header';
 import Ranking from './ranking';
 import FinishModal from './finishModal';
 
+function shuffleNumbers(numbers) {
+    const shuffledNumbers = [...numbers];
+
+    for (let i = shuffledNumbers.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        const temp = shuffledNumbers[i];
+        shuffledNumbers[i] = shuffledNumbers[randomIndex];
+        shuffledNumbers[randomIndex] = temp;
+    }
+    return shuffledNumbers;
+}
+
 function Game() {
     const [menu, setMenu] = useState('game');
     const [level, setLevel] = useState(1);
@@ -28,12 +40,12 @@ function Game() {
 
     const [numbers, setNumbers] = useState(() => {
         const initialNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
-        return [...initialNumbers].sort(() => Math.random() - 0.5);
+        return shuffleNumbers(initialNumbers);
     });
 
     const [nextNumbers, setNextNumbers] = useState(() => {
         const initialNumbers = Array.from({ length: 9 }, (_, i) => i + 10);
-        return [...initialNumbers].sort(() => Math.random() - 0.5);
+        return shuffleNumbers(initialNumbers);
     });
 
     useEffect(() => {
@@ -66,18 +78,14 @@ function Game() {
             (_, i) => i + 1
         );
 
-        setNumbers(
-            [...initialNumbers].sort(() => Math.random() - 0.5)
-        );
+        setNumbers(shuffleNumbers(initialNumbers));
 
         const initialNextNumbers = Array.from(
             { length: count },
             (_, i) => i + count + 1
         );
 
-        setNextNumbers(
-            [...initialNextNumbers].sort(() => Math.random() - 0.5)
-        );
+        setNextNumbers(shuffleNumbers(initialNextNumbers));
 
         setNextNumber(1);
         setFinished(false);
