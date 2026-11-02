@@ -15,6 +15,17 @@ function Game() {
 
     const [records, setRecords] = useLocalStorage('records', []);
 
+    useEffect(() => {
+        if (records.some((record) => !record.id)) {
+            setRecords((prevRecords) =>
+                prevRecords.map((record) => ({
+                    ...record,
+                    id: record.id || crypto.randomUUID()
+                }))
+            );
+        }
+    }, [records, setRecords]);
+
     const [numbers, setNumbers] = useState(() => {
         const initialNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
         return [...initialNumbers].sort(() => Math.random() - 0.5);
@@ -120,6 +131,7 @@ function Game() {
                 setFinished(true);
 
                 const newRecord = {
+                    id: crypto.randomUUID(),
                     level: level,
                     timer: finalTime,
                     date: new Date().toLocaleString('ko-KR')

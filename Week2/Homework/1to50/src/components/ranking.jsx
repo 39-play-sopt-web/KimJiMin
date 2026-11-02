@@ -23,7 +23,7 @@ function Ranking({ sortedRecords, clearRecords }) {
                         </thead>
                         <tbody>
                             {sortedRecords.map((record, index) => (
-                                <tr key={index}>
+                                <tr key={record.id}>
                                     <td>{index + 1}</td>
                                     <td>Level {record.level}</td>
                                     <td>{record.timer.toFixed(2)}초</td>
