@@ -38,10 +38,6 @@ function Game() {
         return () => clearInterval(interval);
     }, [isRunning]);
 
-    useEffect(() => {
-        localStorage.setItem('records', JSON.stringify(records));
-    }, [records]);
-
     const sortedRecords = [...records].sort((a, b) => {
         if (a.level !== b.level) {
             return b.level - a.level;
