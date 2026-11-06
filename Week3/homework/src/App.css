@@ -22,21 +22,6 @@ h1 {
   margin-bottom: 30px;
 }
 
-.rating-filter button {
-  padding: 10px 18px;
-  border: 1px solid #555;
-  border-radius: 20px;
-  background-color: #242424;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.rating-filter button:hover {
-  background-color: #e50914;
-  border-color: #e50914;
-}
-
 .movie-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -263,6 +248,29 @@ h1 {
   overflow-wrap: anywhere;
 }
 
+.site-header {
+  width: 100%;
+  padding: 20px 40px;
+  border-bottom: 1px solid #333;
+}
+
+.site-logo {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.site-logo span {
+  color: #8ff5e8;
+}
+
+.movie-release-date {
+  color: #8ff5e8 !important;
+  font-size: 13px !important;
+  margin-bottom: 18px !important;
+}
+
 @media (max-width: 1000px) {
   .movie-list {
     grid-template-columns: repeat(3, 1fr);
@@ -310,33 +318,4 @@ h1 {
   .movie-details-grid {
     grid-template-columns: 1fr;
   }
-}
-
-.site-header {
-  width: 100%;
-  padding: 20px 40px;
-  border-bottom: 1px solid #333;
-}
-
-.site-logo {
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.site-logo span {
-  color: #8ff5e8;
-}
-
-.rating-filter button.active {
-  background-color: #e50914;
-  border-color: #e50914;
-  color: white;
-}
-
-.movie-release-date {
-  color: #8ff5e8 !important;
-  font-size: 13px !important;
-  margin-bottom: 18px !important;
 }

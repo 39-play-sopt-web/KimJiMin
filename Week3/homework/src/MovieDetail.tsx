@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { api } from './api';
 
 interface Movie {
   id: number;
@@ -22,72 +22,55 @@ interface Movie {
   spoken_languages: { iso_639_1: string; name: string }[];
 }
 
-// 원어를 한국어로 표시
+// 원어를 한국어로 자동 변환
 function getLanguageName(code: string) {
-  if (code === 'ko') {
-    return '한국어';
-  } else if (code === 'en') {
-    return '영어';
-  } else if (code === 'ja') {
-    return '일본어';
-  } else if (code === 'zh') {
-    return '중국어';
-  } else if (code === 'fr') {
-    return '프랑스어';
-  } else if (code === 'de') {
-    return '독일어';
-  } else if (code === 'es') {
-    return '스페인어';
-  }
+  const languageNames = new Intl.DisplayNames(['ko'], {
+    type: 'language',
+  });
 
-  return code;
+  return languageNames.of(code) || code;
 }
 
+// 언어 이름을 영어로 자동 변환
 function getEnglishLanguageName(code: string) {
-  if (code === 'ko') {
-    return 'Korean';
-  } else if (code === 'en') {
-    return 'English';
-  } else if (code === 'ja') {
-    return 'Japanese';
-  } else if (code === 'zh') {
-    return 'Chinese';
-  } else if (code === 'fr') {
-    return 'French';
-  } else if (code === 'de') {
-    return 'German';
-  } else if (code === 'es') {
-    return 'Spanish';
-  }
+  const languageNames = new Intl.DisplayNames(['en'], {
+    type: 'language',
+  });
 
-  return code;
+  return languageNames.of(code) || code;
 }
 
 function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState<Movie | null>(null);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getMovie = async () => {
       try {
-        const response = await axios.get<Movie>(
-          `${import.meta.env.VITE_API_BASE_URL}/movie/${id}`,
-          {
-            params: {
-              api_key: import.meta.env.VITE_API_KEY,
-              language: 'ko-KR',
-            },
-          }
-        );
+        setIsError(false);
+        setMovie(null);
+
+        const response = await api.get<Movie>(`/movie/${id}`);
 
         setMovie(response.data);
       } catch (error) {
         console.error('영화 상세 정보를 가져오지 못했습니다.', error);
+        setIsError(true);
       }
     };
 
     getMovie();
   }, [id]);
+
+  if (isError) {
+    return (
+      <main className="movie-detail">
+        <p>영화 정보를 불러오지 못했습니다.</p>
+        <Link to="/">← 목록으로 돌아가기</Link>
+      </main>
+    );
+  }
 
   if (!movie) {
     return <p>영화 정보를 불러오는 중...😴</p>;
@@ -125,7 +108,9 @@ function MovieDetail() {
             </span>
 
             <span>{movie.release_date}</span>
-            <span>{movie.runtime ?? '정보 없음'}분</span>
+            <span>
+              {movie.runtime ? `${movie.runtime}분` : '정보 없음'}
+            </span>
             <span>투표 {movie.vote_count.toLocaleString()}명</span>
           </div>
 
